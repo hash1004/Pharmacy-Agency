@@ -20,6 +20,7 @@ app_license = "mit"
 # 		"has_permission": "pharmacy_agency.api.permission.has_app_permission"
 # 	}
 # ]
+setup_wizard_complete = "pharmacy_agency.setup.install.install_demo_data"
 
 # Includes in <head>
 # ------------------
