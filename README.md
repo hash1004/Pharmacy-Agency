@@ -1,33 +1,38 @@
 ### Pharmacy Agency
 
-Pharmacy App
 
-### Installation
+### Setup Instructions:
+1. I prefer Frappe installation with [Frappe Docker](https://github.com/frappe/frappe_docker/blob/main/docs/05-development/01-development.md)
 
-You can install this app using the [bench](https://github.com/frappe/bench) CLI:
+2. Setup a site with the instrcutions provided in the Frappe Docker Docs.
 
-```bash
-cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch develop
-bench install-app pharmacy_agency
+3. Install ERPNext and then Pharmacy Agency App
+```
+bench get-app https://github.com/hash1004/Pharmacy-Agency
+bench --site sitename install-app pharmacy_agency
 ```
 
-### Contributing
-
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
-
-```bash
-cd apps/pharmacy_agency
-pre-commit install
+### Note: 
+- Manufacturer Doctype is already present in ERPNext so added the new doctype as Agency Manufacturer
+- Tested with the following app versions:
+```json
+{
+	"frappe": "15.100.0",
+	"erpnext": "15.97.0"
+}
 ```
 
-Pre-commit is configured to use the following tools for checking and formatting your code:
+### Testing Instructions:
+1. Check the doctypes created.
 
-- ruff
-- eslint
-- prettier
-- pyupgrade
+2. Agency Doctype has 3 documents. "PharmaLink Traders" and "HealthBridge Distributors" have items in them if you uncheck "Is Active" you won't be able to save it.
 
-### License
+3. "Create Supplier" button creates a Supplier into ERPNExt and redirects to that Supplier.
 
-mit
+4. Inactive Agencies show in red.
+
+5. Disable GMBH "Agency Manufacturer" and try creating "Manufacturer Item" with GMBH Agency Manufacturer it will throw an error.
+
+6. Try creating "Manufacturer Item" with "Agency Manufacturer" GMBH and "Item Code" Aspirin it will throw an error.
+
+7. Test api endpoint with this command ```bench --site sitename execute --args "{'Aspirin'}" pharmacy_agency.api.get_manufacturer_mappings```
